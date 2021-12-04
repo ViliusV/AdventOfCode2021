@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode2021.Challenges
 {
@@ -13,7 +14,7 @@ namespace AdventOfCode2021.Challenges
 
 		public int CalculateIncreasedMeasurements()
 		{
-			int count = 0;
+			var count = 0;
 
 			if (_sonarReadings == null || !_sonarReadings.Any())
 			{
@@ -22,7 +23,7 @@ namespace AdventOfCode2021.Challenges
 
 			for (var id = 0; id < _sonarReadings.Length - 1; id++)
 			{
-				if (_sonarReadings[id+1] > _sonarReadings[id])
+				if (_sonarReadings[id + 1] > _sonarReadings[id])
 				{
 					count++;
 				}
@@ -30,6 +31,33 @@ namespace AdventOfCode2021.Challenges
 
 			return count;
 
+		}
+
+		public int CalculateIncreasedGroupMeasurements()
+		{
+			var count = 0;
+
+			if (_sonarReadings == null || !_sonarReadings.Any())
+			{
+				return count;
+			}
+
+			var groupedMeasurements = new List<int>();
+
+
+			for (var id = 0; id < _sonarReadings.Length - 2; id++)
+			{
+				var groupSum = _sonarReadings[id] + _sonarReadings[id + 1] + _sonarReadings[id + 2];
+
+				if (groupedMeasurements.Any() && groupSum > groupedMeasurements.Last())
+				{
+					count++;
+				}
+
+				groupedMeasurements.Add(groupSum);
+			}
+
+			return count;
 		}
 	}
 }
