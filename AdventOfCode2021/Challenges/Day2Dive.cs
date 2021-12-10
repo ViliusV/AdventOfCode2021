@@ -12,8 +12,9 @@
 
 		public int MultiplyHorizontalPositionAndDepth()
 		{
-			var x = 0;
-			var depth = 0;
+			int horizontalPosition = 0;
+			int depth = 0;
+			int aim = 0;
 
 			foreach (var step in _courseSteps)
 			{
@@ -24,23 +25,24 @@
 				{
 					case "forward":
 						{
-							x += value;
+							horizontalPosition += value;
+							depth += aim * value;
 							break;
 						}
 					case "up":
 						{
-							depth -= value;
+							aim -= value;
 							break;
 						}
 					case "down":
 						{
-							depth += value;
+							aim += value;
 							break;
 						}
 				}
 			}
 
-			var result = x * depth;
+			int result = horizontalPosition * depth;
 
 			return result;
 		}
